@@ -13,9 +13,9 @@ export function Nav({ onHero = false }: { onHero?: boolean }) {
 
   return (
     <header className={`relative ${onHero ? "text-cream" : "border-b border-line"}`}>
-      <div className="px-page flex flex-wrap items-center justify-between gap-6 py-[22px]">
+      <div className="px-page flex items-center justify-between gap-4 py-[22px]">
         <Link href="/" className="flex flex-col leading-none">
-          <span className="font-serif text-[22px] font-semibold tracking-[.06em]">PAPA&apos;S WOODSHOP</span>
+          <span className="font-serif text-[19px] font-semibold tracking-[.06em] sm:text-[22px]">PAPA&apos;S WOODSHOP</span>
           <span className={`mt-1.5 text-[10px] tracking-[.22em] ${onHero ? "text-gold" : "text-gold-muted"}`}>
             HANDCRAFTED FURNITURE
           </span>
@@ -34,7 +34,7 @@ export function Nav({ onHero = false }: { onHero?: boolean }) {
               Commission a table
             </Link>
           ) : (
-            <a href={site.phoneHref} className="text-[13px] font-semibold">{site.phoneDisplay}</a>
+            <a href={site.phoneHref} className="hidden text-[13px] font-semibold sm:block">{site.phoneDisplay}</a>
           )}
           <button
             type="button"
@@ -53,7 +53,7 @@ export function Nav({ onHero = false }: { onHero?: boolean }) {
       </div>
       {open && (
         <nav
-          className={`px-page flex flex-col border-t border-line text-[13px] font-medium uppercase tracking-[.1em] nav:hidden ${
+          className={`px-page absolute inset-x-0 top-full z-20 flex flex-col border-t border-line text-[13px] font-medium uppercase tracking-[.1em] shadow-xl nav:hidden ${
             onHero ? "bg-green-deep" : "bg-cream"
           }`}
         >
@@ -62,7 +62,8 @@ export function Nav({ onHero = false }: { onHero?: boolean }) {
               {label}
             </Link>
           ))}
-          <Link href="/contact" className="py-4">Commission a table</Link>
+          <Link href="/contact" className="border-b border-line/40 py-4">Commission a table</Link>
+          <a href={site.phoneHref} className="py-4 text-gold">Call or text {site.phoneDisplay}</a>
         </nav>
       )}
     </header>

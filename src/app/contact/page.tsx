@@ -17,7 +17,7 @@ export default function ContactPage() {
   return (
     <>
       <Nav />
-      <main className="px-page mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-start gap-[clamp(40px,6vw,96px)] py-[clamp(48px,7vw,88px)]">
+      <main className="px-page mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-[clamp(40px,6vw,96px)] py-[clamp(48px,7vw,88px)]">
         <div className="flex flex-col gap-7">
           <div>
             <div className="kicker">Let&apos;s make it yours.</div>
@@ -30,9 +30,9 @@ export default function ContactPage() {
           <div className="grid gap-0.5 border border-line bg-line">
             {ways.map((w) => (
               <a key={w.label} href={w.href} className="flex items-center justify-between gap-4 bg-white px-[22px] py-5">
-                <div>
+                <div className="min-w-0">
                   <div className="mb-1 text-[11px] tracking-[.16em] uppercase text-muted">{w.label}</div>
-                  <div className="font-serif text-[22px]">{w.value}</div>
+                  <div className="font-serif text-[22px] [overflow-wrap:anywhere]">{w.value}</div>
                 </div>
                 <span className="text-[22px] text-gold">→</span>
               </a>

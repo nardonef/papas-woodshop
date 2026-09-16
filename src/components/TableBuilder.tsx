@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Photo } from "@/components/Photo";
 import { derive, initialState, type BaseColor, type BuilderState, type Oil, type Style } from "@/lib/builder";
 import { site } from "@/lib/site";
@@ -8,6 +8,9 @@ import { site } from "@/lib/site";
 const ON = "border-green";
 const OFF = "border-line";
 const sel = (on: boolean) => `border-2 bg-white text-left ${on ? ON : OFF}`;
+// Widest plan-view content: 10 ft table plus end chairs.
+const PLAN_W = 362;
+const PLAN_H = 340;
 
 const styles: { id: Style; title: string; meta: string; photo: string; position?: string }[] = [
   { id: "trestle", title: "X-Trestle", meta: "Rectangular · pegged stretcher", photo: "xbase-detail.jpg" },
@@ -70,15 +73,22 @@ export function TableBuilder() {
   const set = (patch: Partial<BuilderState>) => setS((prev) => ({ ...prev, ...patch }));
   const d = derive(s);
   const label = "micro text-muted";
+  const planRef = useRef<HTMLDivElement>(null);
+  const [planScale, setPlanScale] = useState(1);
+  useEffect(() => {
+    const ro = new ResizeObserver(([e]) => setPlanScale(Math.min(1, e.contentRect.width / PLAN_W)));
+    ro.observe(planRef.current!);
+    return () => ro.disconnect();
+  }, []);
 
   return (
     <div className="px-page mx-auto grid max-w-[1280px] grid-cols-[repeat(auto-fit,minmax(min(100%,400px),1fr))] items-start gap-[clamp(28px,4vw,56px)] pb-[clamp(56px,7vw,96px)]">
       <div className="flex flex-col gap-10">
         <Step n="01" title="Base style">
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid gap-3 sm:grid-cols-3">
             {styles.map((o) => (
-              <button key={o.id} type="button" aria-pressed={s.style === o.id} onClick={() => set({ style: o.id, ...(o.id === "round" ? { bench: false } : {}) })} className={`flex flex-col p-0 ${sel(s.style === o.id)}`}>
-                <Photo src={o.photo} alt={o.title} position={o.position} sizes="(max-width: 900px) 33vw, 200px" className="aspect-[4/3] w-full" />
+              <button key={o.id} type="button" aria-pressed={s.style === o.id} onClick={() => set({ style: o.id, ...(o.id === "round" ? { bench: false } : {}) })} className={`flex p-0 sm:flex-col ${sel(s.style === o.id)}`}>
+                <Photo src={o.photo} alt={o.title} position={o.position} sizes="(max-width: 640px) 120px, (max-width: 900px) 33vw, 200px" className="w-28 flex-none sm:aspect-[4/3] sm:w-full" />
                 <div className="px-3.5 py-3">
                   <div className="font-serif text-[17px]">{o.title}</div>
                   <div className="mt-0.5 text-xs text-muted">{o.meta}</div>
@@ -149,36 +159,40 @@ export function TableBuilder() {
             <span className="text-xs text-faint">chairs shown 20 in wide</span>
           </div>
           <div
-            className="relative mt-2 h-[340px]"
+            ref={planRef}
+            className="relative mt-2"
             style={{
+              height: PLAN_H * planScale,
               background:
                 "repeating-linear-gradient(0deg,transparent 0 29px,#efe9dd 29px 30px),repeating-linear-gradient(90deg,transparent 0 29px,#efe9dd 29px 30px)",
             }}
           >
-            <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-150 ease-out"
-              style={{
-                width: d.tableW,
-                height: d.tableH,
-                borderRadius: d.isRound ? "50%" : 4,
-                background: d.topColor,
-                boxShadow: "inset 0 0 0 3px rgba(0,0,0,.08)",
-              }}
-            />
-            {d.chairs.map((c, i) => (
+            <div className="absolute inset-0" style={{ transform: `scale(${planScale})` }}>
               <div
-                key={i}
-                className="absolute top-1/2 left-1/2 h-[22px] w-[22px] rounded-full bg-green"
-                style={{ transform: `translate(calc(-50% + ${c.x}px), calc(-50% + ${c.y}px))` }}
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-150 ease-out"
+                style={{
+                  width: d.tableW,
+                  height: d.tableH,
+                  borderRadius: d.isRound ? "50%" : 4,
+                  background: d.topColor,
+                  boxShadow: "inset 0 0 0 3px rgba(0,0,0,.08)",
+                }}
               />
-            ))}
-            {d.showBench && (
-              <div
-                className="absolute top-1/2 left-1/2 h-4 rounded-[4px] border border-black/20"
-                style={{ width: d.benchW, background: d.baseColorHex, transform: `translate(-50%, calc(-50% + ${d.benchY}px))` }}
-              />
-            )}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs whitespace-nowrap text-muted">{d.dims}</div>
+              {d.chairs.map((c, i) => (
+                <div
+                  key={i}
+                  className="absolute top-1/2 left-1/2 h-[22px] w-[22px] rounded-full bg-green"
+                  style={{ transform: `translate(calc(-50% + ${c.x}px), calc(-50% + ${c.y}px))` }}
+                />
+              ))}
+              {d.showBench && (
+                <div
+                  className="absolute top-1/2 left-1/2 h-4 rounded-[4px] border border-black/20"
+                  style={{ width: d.benchW, background: d.baseColorHex, transform: `translate(-50%, calc(-50% + ${d.benchY}px))` }}
+                />
+              )}
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 text-xs whitespace-nowrap text-muted">{d.dims}</div>
+            </div>
           </div>
         </div>
 

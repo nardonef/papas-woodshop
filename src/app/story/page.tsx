@@ -35,7 +35,7 @@ export default function StoryPage() {
     <>
       <Nav />
       <main>
-        <section className="grid min-h-[70vh] grid-cols-[repeat(auto-fit,minmax(340px,1fr))]">
+        <section className="grid min-h-[70vh] grid-cols-[repeat(auto-fit,minmax(min(100%,340px),1fr))]">
           <div className="flex flex-col justify-center gap-[22px] px-[clamp(20px,5vw,64px)] py-[clamp(48px,7vw,96px)]">
             <div className="kicker">About Papa</div>
             <h1 className="font-serif text-[clamp(40px,4.8vw,64px)] leading-[1.02] font-medium tracking-[-.01em]">
@@ -82,7 +82,7 @@ export default function StoryPage() {
           </div>
         </section>
 
-        <section className="px-page mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(320px,1fr))] items-center gap-[clamp(32px,5vw,72px)] py-[clamp(56px,7vw,96px)]">
+        <section className="px-page mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-center gap-[clamp(32px,5vw,72px)] py-[clamp(56px,7vw,96px)]">
           <Photo src="xbase-detail.jpg" alt="X-trestle base with pegged stretcher" sizes="(max-width: 900px) 100vw, 600px" className="aspect-[4/3]" />
           <div className="flex flex-col gap-5">
             <div className="eyebrow">Why reclaimed</div>
