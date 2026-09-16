@@ -13,6 +13,9 @@ const workSans = Work_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], 
 const caveat = Caveat({ subsets: ["latin"], weight: ["500", "600"], variable: "--font-caveat" });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000",
+  ),
   title: { default: `${site.name} · Reclaimed barn wood dining tables`, template: `%s · ${site.name}` },
   description:
     "Dining tables made from reclaimed Amish barn wood, hand-built one at a time in Westchester County, NY. In-stock tables and built-to-order commissions.",
