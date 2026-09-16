@@ -36,7 +36,7 @@ export default function Home() {
         <div className="px-page relative grid flex-1 grid-cols-[repeat(auto-fit,minmax(min(100%,420px),1fr))] content-end items-end gap-x-[clamp(32px,5vw,72px)] gap-y-8 pt-[clamp(48px,8vw,120px)] pb-[clamp(40px,6vw,72px)]">
           <div>
             <div className="mb-2 font-script text-[clamp(26px,3vw,34px)] text-gold">Reclaimed Amish barn wood, hand-built one at a time</div>
-            <h1 className="font-serif text-[clamp(52px,7vw,92px)] leading-[.98] font-medium tracking-[-.01em]">
+            <h1 className="font-serif text-[clamp(42px,7vw,92px)] leading-[.98] font-medium tracking-[-.01em]">
               Built to gather.
               <br />
               Built to last.

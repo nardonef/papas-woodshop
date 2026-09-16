@@ -65,7 +65,7 @@ export default function TablesPage() {
             <h2 className="font-serif text-[28px] font-medium">Available now</h2>
             <span className="text-xs font-semibold tracking-[.14em] uppercase text-green">1 table</span>
           </div>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] border border-line bg-white">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] border border-line bg-white">
             <div className="grid grid-cols-2 gap-0.5 bg-line">
               <Photo src="round-side.jpg" alt="60 inch round trestle table, side view" sizes="(max-width: 900px) 100vw, 600px" className="col-span-2 aspect-[4/3]" />
               <Photo src="round-top.jpg" alt="Round table top" sizes="300px" className="aspect-[4/3]" />
@@ -111,7 +111,7 @@ export default function TablesPage() {
                 on the wood on hand.
               </p>
             </div>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-6">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] gap-6">
               {styles.map((s) => (
                 <div key={s.title} className="flex flex-col border border-line bg-cream">
                   <Photo src={s.photo} alt={s.title} sizes="(max-width: 900px) 100vw, 400px" className="aspect-[4/3]" />
