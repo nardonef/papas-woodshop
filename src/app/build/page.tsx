@@ -17,7 +17,7 @@ export default function BuildPage() {
         </PageHeader>
         <TableBuilder />
       </main>
-      <Footer />
+      <Footer tagline />
     </>
   );
 }

@@ -11,7 +11,7 @@ type Props = {
 
 export function Photo({ src, alt, position = "center", sizes = "100vw", priority, className = "" }: Props) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`overflow-hidden ${className.includes("absolute") ? "" : "relative"} ${className}`}>
       <Image
         src={`/photos/${src}`}
         alt={alt}

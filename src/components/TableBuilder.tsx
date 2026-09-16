@@ -39,13 +39,13 @@ function Step({ n, title, children }: { n: string; title: string; children: Reac
 }
 
 function Slider({
-  label, value, min, max, step, lo, hi, onChange,
-}: { label: string; value: number; min: number; max: number; step: number; lo: string; hi: string; onChange: (n: number) => void }) {
+  label, value, display, min, max, step, lo, hi, onChange,
+}: { label: string; value: number; display: string; min: number; max: number; step: number; lo: string; hi: string; onChange: (n: number) => void }) {
   return (
     <label className="flex flex-col gap-2.5">
       <div className="flex justify-between text-[13px]">
         <span className="font-semibold uppercase tracking-[.1em] text-muted">{label}</span>
-        <span className="font-serif text-xl">{value}</span>
+        <span className="font-serif text-xl">{display}</span>
       </div>
       <input type="range" min={min} max={max} step={step} value={value} onChange={(e) => onChange(parseFloat(e.target.value))} />
       <div className="flex justify-between text-[11px] text-faint"><span>{lo}</span><span>{hi}</span></div>
@@ -91,11 +91,11 @@ export function TableBuilder() {
         <Step n="02" title="Size">
           <div className="flex flex-col gap-[22px] border border-line bg-white px-6 py-[22px]">
             {d.isRound ? (
-              <Slider label="Diameter" value={s.diameter} min={42} max={72} step={6} lo="42 in" hi="72 in" onChange={(n) => set({ diameter: n })} />
+              <Slider label="Diameter" value={s.diameter} display={`${s.diameter} in`} min={42} max={72} step={6} lo="42 in" hi="72 in" onChange={(n) => set({ diameter: n })} />
             ) : (
               <>
-                <Slider label="Length" value={s.length} min={5} max={10} step={0.5} lo="5 ft" hi="10 ft" onChange={(n) => set({ length: n })} />
-                <Slider label="Width" value={s.width} min={34} max={46} step={2} lo="34 in · narrow" hi="46 in · wide" onChange={(n) => set({ width: n })} />
+                <Slider label="Length" value={s.length} display={d.lengthLabel} min={5} max={10} step={0.5} lo="5 ft" hi="10 ft" onChange={(n) => set({ length: n })} />
+                <Slider label="Width" value={s.width} display={`${s.width} in`} min={34} max={46} step={2} lo="34 in · narrow" hi="46 in · wide" onChange={(n) => set({ width: n })} />
               </>
             )}
           </div>

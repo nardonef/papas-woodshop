@@ -3,13 +3,17 @@ import { navLinks, site } from "@/lib/site";
 
 const heading = "mb-2.5 text-xs font-semibold uppercase tracking-[.1em] text-cream";
 
-export function Footer({ full = false }: { full?: boolean }) {
+export function Footer({ full = false, tagline = false }: { full?: boolean; tagline?: boolean }) {
   if (!full) {
     return (
       <footer className="px-page flex flex-wrap items-start justify-between gap-8 bg-green py-12 text-sm leading-[1.7] text-line">
         <div>
           <div className="font-serif text-[22px] font-semibold tracking-[.06em] text-cream">PAPA&apos;S WOODSHOP</div>
-          <div className="mt-1.5 text-faint">{site.location} · Local pickup, delivery for a fee</div>
+          {tagline ? (
+            <div className="font-script text-[22px] text-gold">{site.tagline}</div>
+          ) : (
+            <div className="mt-1.5 text-faint">{site.location} · Local pickup, delivery for a fee</div>
+          )}
         </div>
         <div className="flex flex-wrap gap-12">
           <div>
